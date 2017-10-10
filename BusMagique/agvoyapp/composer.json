@@ -1,0 +1,12 @@
+{
+	"require" : {
+		"silex/silex" : "^2.0",
+		"twig/twig" : "^1.33"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Model\\" : "model"
+		}
+	},
+	"name" : "Appli agence de voyage TP4"
+}
