@@ -18,8 +18,18 @@ require_once 'agvoymodel.php';
 
 // Routage et actions
 
+
+//Accueil :
+
+$app->get('/',
+    function() use ($app)
+    {
+        return $app['twig']->render('accueil.html.twig');
+    }
+)->bind('acceuil');
+
 // circuitlist : Liste tous les circuits
-$app->get ( '/circuit', 
+$app->get ( '/circuit',
     function () use ($app) 
     {
     	$circuitslist = get_all_circuits ();
