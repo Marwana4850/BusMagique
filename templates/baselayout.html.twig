@@ -3,22 +3,24 @@
 
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>{% block title %}Le Bus Magique{% endblock %}</title>
+    <meta charset="UTF-8">
+    <title>{% block title %}Le Bus Magique{% endblock %}</title>
     {% block style %}
-        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
-        <link type="text/css" rel="stylesheet" href="/css/bootstrap-theme.min.css">
+        <link type="text/css" rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+        <link type="text/css" rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css">
         <link type="text/css" rel="stylesheet" href="/css/base.css">
-
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
     {% endblock %}
 </head>
 
-<nav id="sidebar-wrapper" class="active">
-  <ul class="sidebar-nav"  id="sidebar">
-    <li><a class="menu-link" href="/"><span class="sidebar-text">Index</span><span class="fa fa-home menu-icon"></span></a></li>
-    <li><a class="menu-link"  href="/circuit"><span class="sidebar-text">Circuits List</span><span class="fa fa-align-left menu-icon"></span></a></li>
-    <li><a class="menu-link"  href="/programmation"><span class="sidebar-text">Programmations List</span><span class="fa fa-arrow-right menu-icon"></span></a></li>
-  </ul>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <ul>
+        <li><a href="/">Index</a></li>
+        <li><a href="/circuit">Circuits List</a></li>
+        <li><a href="/programmation">Programmations List</a></li>
+      </ul>
+    </div>
 </nav>
 
 <body>

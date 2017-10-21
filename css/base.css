@@ -1,5 +1,18 @@
 body{
-    background-color:yellow;
+    background-color:beige;
     display:table;
-    margin:0 auto;
+    margin:6% auto;
+}
+
+nav li{
+    list-style-type:none;
+    margin-right:3%;
+}
+nav ul{
+    margin:2.3%;
+    display:flex;
+    flex-direction: row;
+}
+nav{
+    height: 9%;
 }
