@@ -22,16 +22,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Logo</a>
+            <a class="navbar-brand" style="background-color:#222" href="#"><img style="display:inline-block;width:30px;"src="favicon.jpg"> Voyages Bus-Magique</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="/">Accueil</a></li>
-                <li><a href="/circuit">Circuits</a></li>
-                <li><a href="/programmation">Programmation</a></li>
+                <li><a class="navbar-link" href="/">Accueil</a></li>
+                <li><a class="navbar-link" href="/circuit">Circuits</a></li>
+                <li><a class="navbar-link" href="/programmation">Programmation</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="#" onclick="document.getElementById('id01').style.display='block'"><span class="glyphicon glyphicon-log-in"></span>  Connexion</a></li>
             </ul>
         </div>
     </div>
@@ -39,13 +39,38 @@
 
 <body>
 
+<!-- Form de connexion -->
+
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'"
+        class="close" title="Close Modal">&times;</span>
+
+    <form class="modal-content animate" action="/login.php">
+        <div class="imgcontainer">
+            <img style="width:200px;" src="/images/avatar.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container">
+            <label><b>Identifiant</b></label>
+            <input type="text" placeholder="Entrez votre identifiant" name="identifiant"   oninput="this.setCustomValidity('')"  oninvalid="this.setCustomValidity('Veuillez entrer un identifiant valide')" required>
+
+            <label><b>Mot de passe</b></label>
+            <input type="password" placeholder="Entrez votre mot de passe" name="pswd" oninput="this.setCustomValidity('')"  oninvalid="this.setCustomValidity('Veuillez entrer un mot de passe valide')" required>
+
+            <button type="submit">Me Connecter</button>
+        </div>
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn center-block">Retour</button>
+    </form>
+</div>
+
+
 <div class="container-fluid text-center">
     <div class="row content">
 
         <!-- Menu gauche, nouveautes -->
 
         <div class="col-sm-2 sidenav">
-            <div class="panel panel-default">
+            <div class="well">
                 <h3>Nouveaux parcours:</h3>
                 <ul style="list-style-type:none;padding:0">
                     <li><a>Andalousie</a></li>
