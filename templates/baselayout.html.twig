@@ -1,0 +1,33 @@
+{# templates/baselayout.html.twig #}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Le Bus Magique{% endblock %}</title>
+    {% block style %}
+        <link type="text/css" rel="stylesheet" href=>
+    {% endblock %}
+</head>
+
+<nav id="sidebar-wrapper" class="active">
+  <ul class="sidebar-nav"  id="sidebar">
+    <li><a class="menu-link" href="/"><span class="sidebar-text">Index</span><span class="fa fa-home menu-icon"></span></a></li>
+    <li><a class="menu-link"  href="/circuit"><span class="sidebar-text">Circuits List</span><span class="fa fa-align-left menu-icon"></span></a></li>
+    <li><a class="menu-link"  href="/programmation"><span class="sidebar-text">Programmations List</span><span class="fa fa-arrow-right menu-icon"></span></a></li>
+  </ul>
+</nav>
+
+<body>
+  <div id="content" class="active">
+      {% block body %}
+      {% endblock %}
+  </div>
+</body>
+
+<footer class="footer">
+  <div id="footer_content">
+      {% block footer %}
+      {% endblock %}
+  </div>
+</footer>
