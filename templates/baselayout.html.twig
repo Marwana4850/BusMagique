@@ -14,7 +14,7 @@
     {% endblock %}
 </head>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -41,15 +41,29 @@
 
 <div class="container-fluid text-center">
     <div class="row content">
+
+        <!-- Menu gauche, nouveautes -->
+
         <div class="col-sm-2 sidenav">
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
+            <div class="panel panel-default">
+                <h3>Nouveaux parcours:</h3>
+                <ul style="list-style-type:none;padding:0">
+                    <li><a>Andalousie</a></li>
+                    <li><a>Vietnam</a></li>
+                </ul>
+            </div>
         </div>
+
+        <!-- Centre -->
         <div class="col-sm-8 text-left">
             {% block body %}
             {% endblock %}
+            <br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         </div>
+
+        <!-- Infos entreprise -->
+
         <div class="col-sm-2 sidenav">
             <div class="well">
                 <h3>A propos</h3>
@@ -57,13 +71,14 @@
             </div>
             <div class="well">
                 <h3>Contacts</h3>
-                <p>e-mail: voyages@bus-magique.eu</p>
-                <p>Tel: +33 6 59 46 35 95</p>
+                <p><span class="glyphicon glyphicon-envelope"></span>   voyages@bus-magique.eu</p>
+                <p><span class="glyphicon glyphicon-phone-alt"></span>   +33 1 59 46 35 95</p>
 
-                <p>Addresse:<br>15 rue des Voyageurs,<br>Paris 5ème<br>75005</p>
+                <p><span class="glyphicon glyphicon-map-marker"></span>  15 rue des Voyageurs,<br>Paris 5ème<br>75005</p>
             </div>
-
         </div>
+
+
     </div>
 </div>
 <script src="/js/bootstrap.min.js"></script>
