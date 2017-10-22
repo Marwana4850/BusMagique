@@ -14,26 +14,30 @@
     {% endblock %}
 </head>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
+<nav>
+    <div class="navbar navbar-fixed-top">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" style="background-color:#222" href="#"><img style="display:inline-block;width:30px;"src="favicon.jpg"> Voyages Bus-Magique</a>
+            <a class="navbar-brand" style="background-color:#333" ><img style="display:inline-block;width:30px;"src="favicon.jpg"> Voyages Bus-Magique</a>
         </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li><a class="navbar-link" href="/">Accueil</a></li>
-                <li><a class="navbar-link" href="/circuit">Circuits</a></li>
-                <li><a class="navbar-link" href="/programmation">Programmation</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" onclick="document.getElementById('id01').style.display='block'"><span class="glyphicon glyphicon-log-in"></span>  Connexion</a></li>
-            </ul>
+
+        <a href="/">Accueil</a>
+        <a href="/programmation">Programmations</a>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="myFunction()">Circuits
+            </button>
+            <div class="dropdown-content" id="myDropdown">
+                <a href="#">Andalousie</a>
+                <a href="#">Italie</a>
+                <a href="#">Vietnam</a>
+                <a href="#">Ile de France</a>
+            </div>
         </div>
+        <a class="nav navbar-nav navbar-right" href="#" onclick="document.getElementById('id01').style.display='block'"><span class="glyphicon glyphicon-log-in"></span>  Connexion</a></li>
     </div>
 </nav>
 
@@ -51,15 +55,16 @@
         </div>
 
         <div class="container">
-            <label><b>Identifiant</b></label>
+            <label><b>Identifiant  </b></label>
             <input type="text" placeholder="Entrez votre identifiant" name="identifiant"   oninput="this.setCustomValidity('')"  oninvalid="this.setCustomValidity('Veuillez entrer un identifiant valide')" required>
-
+            <br>
             <label><b>Mot de passe</b></label>
             <input type="password" placeholder="Entrez votre mot de passe" name="pswd" oninput="this.setCustomValidity('')"  oninvalid="this.setCustomValidity('Veuillez entrer un mot de passe valide')" required>
-
-            <button type="submit">Me Connecter</button>
+            <br>
         </div>
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn center-block">Retour</button>
+        <button class="center-block" type="submit">Me Connecter</button>
+
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn center-block">Retour</button>
     </form>
 </div>
 
@@ -83,8 +88,6 @@
         <div class="col-sm-8 text-left">
             {% block body %}
             {% endblock %}
-            <br>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         </div>
 
         <!-- Infos entreprise -->
@@ -106,7 +109,10 @@
 
     </div>
 </div>
-<script src="/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/navbarDropdown.js"></script>
+
 </body>
 
 <footer class="footer">

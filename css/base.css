@@ -21,7 +21,7 @@ body{
     background-color: #fefefe;
     margin: 5px auto; /* 15% from the top and centered */
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 30%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
@@ -64,7 +64,7 @@ form {
 }
 
 input[type=text], input[type=password] {
-    width: 100%;
+    width: 20rem;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -72,17 +72,17 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
-button {
+.modal button {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 20rem;
 }
 
-button:hover {
+.modal button:hover {
     opacity: 0.8;
 }
 
@@ -118,4 +118,79 @@ span.psw {
     .cancelbtn {
         width: 100%;
     }
+}
+
+
+label { display: inline-block; width: 15rem; text-align: right; }
+
+.navbar {
+    overflow: hidden;
+    background-color: #333;
+    font-family: Arial;
+}
+
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+}
+
+
+.navbar a, .dropdown .dropbtn {
+    color:lightgrey;
+}
+.navbar a:hover, .dropdown:hover .dropbtn {
+    color:white;
+}
+
+.navbar-inverse .navbar-nav > li > a{
+    color:lightgrey;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: #333;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #555;
+}
+
+.show {
+    display: block;
+}
+
+
+.navbar-right{
+    margin-right:10px;
 }
