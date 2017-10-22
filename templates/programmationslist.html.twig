@@ -2,21 +2,78 @@
 
 {% extends "baselayout.html.twig" %}
 
-{% block title %}{{ parent() }} - List of programmations{% endblock %}
+{% block title %}{{ parent() }} - Liste de nos programmations{% endblock %}
 
 {% block body %}
-    <h1>List of programmations</h1>
+    <h2 class="titrePage text-center">Liste de nos programmations</h2>
+    <hr>
+    <br>
     {% if programmationslist is not empty %}
-        <p>Here are all your programmations:</p>
+
+        <label>Filtrer les résultats:</label>&emsp;<input style="height:40px;" class="form-control" id="myInput" type="text" placeholder="Rechercher par...">
+        <br>
+        <br>
+        <table class="table table-bordered table-striped">
+
+            <thead>
+
+                <tr>
+
+                    <th>Destination</th>
+                    <th>Départ</th>
+                    <th>Arrivée</th>
+                    <th>Date</th>
+                    <th>Places disponibles</th>
+                    <th>Prix</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="myTable">
+            {% for programmation in programmationslist %}
+                <tr>
+
+                    <td>{{ programmation.circuit.description }}</td>
+                    <td>{{ programmation.circuit.villeDepart }}</td>
+                    <td>{{ programmation.circuit.villeArrivee }}</td>
+                    <td>{{ programmation.dateDepart|date('d-m-Y') }}</td>
+                    <td>{{ programmation.nombrePersonnes }}</td>
+                    <td>{{ programmation.prix }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+        {#
+        <p>Voici tous les circuits programmés:</p>
         <ul>
-        {# Loop through list and creeate the list of programmation items. #}
+        #}{# Loop through list and creeate the list of programmation items. #}{#
         {% for programmation in programmationslist %}
             <li>
           		{{ programmation.id }} {{ programmation.circuit.description }} le {{ programmation.dateDepart|date('d-m-Y')  }}
             </li>
         {% endfor %}
         </ul>
+        #}
+
+
     {% else %}
-        <p>Sorry, you don't have any programmations yet!</p>
+        <p>Désolé, nous n'avons malheureusement aucun circuit prévu !</p>
     {% endif %}    
 {% endblock %} {# body #}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,5 +1,4 @@
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
+/*
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
     var myDropdown = document.getElementById("myDropdown");
@@ -7,12 +6,22 @@ function myFunction() {
 
 }
 
-// Close the dropdown if the user clicks outside of it
 window.onclick = function(e) {
     if (!e.target.matches('.dropbtn')) {
         var myDropdown = document.getElementById("myDropdown");
         if (myDropdown.classList.contains('show')) {
             myDropdown.classList.remove('show');
         }
+    }
+}*/
+
+
+//modal
+var modal = document.getElementById('id01');
+
+//closing
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
     }
 }

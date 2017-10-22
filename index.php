@@ -35,10 +35,12 @@ $app->get ( '/circuit',
     function () use ($app) 
     {
     	$circuitslist = get_all_circuits ();
+    	$numberOfRows=ceil(count($circuitslist)/3);
     	// print_r($circuitslist);
     	
     	return $app ['twig']->render ( 'circuitslist.html.twig', [
-    			'circuitslist' => $circuitslist
+    			'circuitslist' => $circuitslist,
+                'numberOfRows' => $numberOfRows
     	] );
     }
 )->bind ( 'circuitlist' );

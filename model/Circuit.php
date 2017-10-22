@@ -20,6 +20,7 @@ class Circuit
 
     private $_id;
     private $description;
+    private $dateAjout;
     private $paysDepart;
     private $villeDepart;
     private $villeArrivee;
@@ -171,7 +172,7 @@ class Circuit
 	    	// Generate ID from number of instances (safe if no decrement at destruction)
 		    $this->_id = self::$instances;
     	}
-	    
+	    $this->dateAjout=date("d/m/Y", rand(time()*0.8, time()));
 	    $this->programmations = array();
 	    $this->etapes = array();
 	    
@@ -253,4 +254,11 @@ class Circuit
         return $this->etapes;
     }
 
+    /**
+     * @return false|string
+     */
+    public function getDateAjout()
+    {
+        return $this->dateAjout;
+    }
 }
