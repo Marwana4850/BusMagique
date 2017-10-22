@@ -71,7 +71,7 @@ function add_programmation($date, $nb_personnes, $prix, $circuit)
 
 add_programmation('2018-07-10', 10,  850, $circuitAndalousie);
 add_programmation('2017-08-16', 10, 1500, $circuitVietnam);
-add_programmation('2016-05-15', 12,  120, $circuitIdF);
+//add_programmation('2016-05-15', 12,  120, $circuitIdF); //Test déprogramamtion IDF
 add_programmation('2017-10-13', 15,  800, $circuitItalie);
 add_programmation('2018-03-27', 8, 1250, $circuitIlesCanaries);
 

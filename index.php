@@ -26,7 +26,9 @@ require_once 'agvoymodel.php';
 $app->get('/',
     function() use ($app)
     {
-        return $app['twig']->render('accueil.html.twig');
+        $programmations=get_all_programmations();
+
+        return $app['twig']->render('accueil.html.twig', ['programmations'=>$programmations]);
     }
 )->bind('acceuil');
 
@@ -38,7 +40,7 @@ $app->get ( '/circuit',
     	$numberOfRows=ceil(count($circuitslist)/3);
     	// print_r($circuitslist);
     	
-    	return $app ['twig']->render ( 'circuitslist.html.twig', [
+    	return $app ['twig']->render ( '/front/circuitslist.html.twig', [
     			'circuitslist' => $circuitslist,
                 'numberOfRows' => $numberOfRows
     	] );
@@ -83,5 +85,18 @@ $app->get('/admin',
         return $app['twig']->render('back/adminLogin.html.twig');
     }
 )->bind('adminPanel');
+
+$app->get('/back/circuit',
+    function() use($app){
+        $circuitslist = get_all_circuits ();
+        $numberOfRows=ceil(count($circuitslist)/3);
+        // print_r($circuitslist);
+
+        return $app ['twig']->render ( '/back/circuitslist.html.twig', [
+            'circuitslist' => $circuitslist,
+            'numberOfRows' => $numberOfRows
+        ] );
+    }
+)->bind('backCircuitList');
 
 $app->run ();

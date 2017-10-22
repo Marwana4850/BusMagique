@@ -1,0 +1,56 @@
+{# templates/circuitslist.html.twig #}
+
+{% extends "baselayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Circuits list{% endblock %}
+
+
+{% block style %}
+    <link type="text/css" rel="stylesheet" href="/css/circuit.css">
+
+{% endblock %}
+
+{% block body %}
+
+
+    <h2 class="titrePage text-center">Liste de nos circuits</h2>
+    <hr>
+    <br>
+
+    {% if circuitslist is not empty %}
+
+        <p>Voici la liste des {{ circuitslist|length }} circuits pouvant être programmés:</p>
+        <div class="row">
+            {# Loop through list and creeate the list of circuit items. #}
+
+            {% for circuit in circuitslist %}
+                {% if numberOfRows ==1 or loop.index % numberOfRows == 1 %}
+                <div class=" text-center column">
+                {% endif %}
+                {% if circuit.programmations is not empty %}
+                   <a href="/circuit/{{ circuit.id }}"><img data-toggle="popover" title="{{ circuit.description }}"
+                                      data-content="Départ de {{ circuit.villeDepart }} pour {{ circuit.dureeCircuit }} j.
+                                        de voyage à travers le {{ circuit.paysDepart }}, pour terminer à {{ circuit.villeArrivee }}."
+                                      data-trigger="hover"
+                           data-placement="bottom" class="img-rounded" style="width:300px;height:185px;" src="/images/{{ circuit.description }}.jpg"><br><br></a>
+                {% endif %}
+                {% if loop.last or loop.index % numberOfRows == 0 %}
+                </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+        <p>Sorry, you don't have any circuits yet!</p>
+    {% endif %}
+
+{% endblock %} {# body #}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+{% endblock %}
