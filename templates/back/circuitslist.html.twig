@@ -5,6 +5,10 @@
 {% block title %}{{ parent() }} - Circuits list{% endblock %}
 
 
+{% block navbar%}
+    {% include 'modules/collabnavbar.html.twig' %}
+{% endblock %}
+
 {% block style %}
     <link type="text/css" rel="stylesheet" href="/css/circuit.css">
 

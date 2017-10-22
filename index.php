@@ -28,9 +28,9 @@ $app->get('/',
     {
         $programmations=get_all_programmations();
 
-        return $app['twig']->render('accueil.html.twig', ['programmations'=>$programmations]);
+        return $app['twig']->render('/front/accueil.html.twig', ['programmations'=>$programmations]);
     }
-)->bind('acceuil');
+)->bind('accueil');
 
 // circuitlist : Liste tous les circuits
 $app->get ( '/circuit',
@@ -70,7 +70,7 @@ $app->get ( '/programmation',
 		$programmationslist = get_all_programmations ();
 		// print_r($programmationslist);
 
-		return $app ['twig']->render ( 'programmationslist.html.twig', [ 
+		return $app ['twig']->render ( '/front/programmationslist.html.twig', [
 				'programmationslist' => $programmationslist 
 			] );
 	}
@@ -79,15 +79,20 @@ $app->get ( '/programmation',
 
 
 //////Routes back office//////
-$app->get('/admin',
-    function() use ($app){
-        echo "TODO";
-        return $app['twig']->render('back/adminLogin.html.twig');
-    }
-)->bind('adminPanel');
 
-$app->get('/back/circuit',
-    function() use($app){
+$app->get('/back',
+    function() use ($app)
+    {
+        $programmations=get_all_programmations();
+
+        return $app['twig']->render('/back/accueil.html.twig', ['programmations'=>$programmations]);
+    }
+)->bind('backaccueil');
+
+// circuitlist : Liste tous les circuits
+$app->get ( '/back/circuit',
+    function () use ($app)
+    {
         $circuitslist = get_all_circuits ();
         $numberOfRows=ceil(count($circuitslist)/3);
         // print_r($circuitslist);
@@ -97,6 +102,21 @@ $app->get('/back/circuit',
             'numberOfRows' => $numberOfRows
         ] );
     }
-)->bind('backCircuitList');
+)->bind ( 'backcircuitlist' );
+
+
+// programmationlist : liste tous les circuits programmés
+$app->get ( '/back/programmation',
+    function () use ($app)
+    {
+        $programmationslist = get_all_programmations ();
+        // print_r($programmationslist);
+
+        return $app ['twig']->render ( '/back/programmationslist.html.twig', [
+            'programmationslist' => $programmationslist
+        ] );
+    }
+)->bind ( 'backprogrammationlist' );
+
 
 $app->run ();
