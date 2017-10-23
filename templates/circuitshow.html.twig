@@ -2,24 +2,26 @@
 
 {% block title %}{{ parent() }} - Viewing circuit a {{ circuit.villeArrivee }}{%  endblock title %}
 {% block body %}
-{# templates/circuitshow.html.twig #}
-{#
-  {{ dump(circuit) }}
-#}
-  <h1>{{ circuit.description }}</h1>
+    {# templates/circuitshow.html.twig #}
+    {#
+      {{ dump(circuit) }}
+    #}
+	<h2 class="titrePage text-center">{{ circuit.description }}</h2>
+	<hr>
+	<br>
+	<h3>Détails</h3>
 
-	<h2>Détails</h2>
+	<p>Description: {{ circuit.description }}</p>
 
-			<p>Description: {{ circuit.description }}</p>
+	<p>Départ de {{ circuit.villeDepart }} pour {{ circuit.dureeCircuit }} j.
+		de voyage à travers {{ circuit.determinant }}{{ circuit.paysDepart }}, pour terminer à
+        {{ circuit.villeArrivee }}.</p>
+	<br>
 
-			<p>Départ de {{ circuit.villeDepart }} pour {{ circuit.dureeCircuit }} j.
-         de voyage à travers le {{ circuit.paysDepart }}, pour terminer à
-         {{ circuit.villeArrivee }}.</p>
-
-  {% if circuit.programmations is not empty %}
-  <h2>Programmations de ce circuit</h2>
-  {# <pre>{{ dump(circuit) }}</pre> #}
-     	<table>
+    {% if circuit.programmations is not empty %}
+		<h3>Programmations de ce circuit</h3>
+        {# <pre>{{ dump(circuit) }}</pre> #}
+     	<table class="table table-bordered table-striped">
      	 		<thead>
      					<tr>
      				    	<th>Date de départ</th>

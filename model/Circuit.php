@@ -20,6 +20,7 @@ class Circuit
 
     private $_id;
     private $description;
+    private $determinant;
     private $dateAjout;
     private $paysDepart;
     private $villeDepart;
@@ -260,5 +261,16 @@ class Circuit
     public function getDateAjout()
     {
         return $this->dateAjout;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeterminant(){
+        return $this->determinant;
+    }
+
+    public function setDeterminant($newDet){
+        $this->determinant=$newDet;
     }
 }

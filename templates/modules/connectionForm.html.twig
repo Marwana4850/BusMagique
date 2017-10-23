@@ -1,0 +1,23 @@
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'"
+        class="close" title="Close Modal">&times;</span>
+
+    <form class="modal-content animate" action="/back">
+        <div class="imgcontainer">
+            <img style="width:200px;" src="/images/avatar.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container">
+            <label><b>Identifiant  </b></label>
+            <input type="text" placeholder="Entrez votre identifiant" name="identifiant"   oninput="this.setCustomValidity('')"  oninvalid="this.setCustomValidity('Veuillez entrer un identifiant valide')" required>
+            <br>
+            <label><b>Mot de passe</b></label>
+            <input type="password" placeholder="Entrez votre mot de passe" name="pswd" oninput="this.setCustomValidity('')"  oninvalid="this.setCustomValidity('Veuillez entrer un mot de passe valide')" required>
+            <br>
+        </div>
+        <button class="submitbtn center-block" type="submit">Me Connecter</button>
+
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn center-block">Retour</button>
+    </form>
+</div>
+
