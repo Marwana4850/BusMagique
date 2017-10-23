@@ -1,6 +1,6 @@
 <?php
 /**
- * Model\Circuit.php
+ * model\Circuit.php
  * 
  * @copyright  2015-2017 Telecom SudParis
  * @license    "MIT/X" License - cf. LICENSE file at project root
@@ -11,7 +11,8 @@ namespace Model;
 /**
  * Classe "Circuit" du Modèle
  *
- * Entité du Modèle qui gère les circuits pouvant être (ou ayant pu être) organisés par l'agence de voyage
+ * Entité du Modèle qui gère les circuits pouvant être (ou ayant pu être) organisés par l'agence 
+ * de voyage
  */
 class Circuit
 {
@@ -20,14 +21,18 @@ class Circuit
 
     private $_id;
     private $description;
-    private $determinant;
-    private $dateAjout;
     private $paysDepart;
     private $villeDepart;
     private $villeArrivee;
+    /**
+     * @var int  Durée du circuit (attribut calculé)
+     */
     private $dureeCircuit;
     protected $programmations;
     private $etapes;
+    /**
+     * @var int Nombre d'étapes (attribut calculé)
+     */
     private $nbEtapes;
     
     /**
@@ -140,6 +145,8 @@ class Circuit
      * Set dureeCircuit
      *
      * @param integer $dureeCircuit
+     * 
+     * Attention : attribut normalement calculé au fil des ajout des étapes
      *
      * @return Circuit
      */
@@ -162,10 +169,15 @@ class Circuit
 
     /**
      * Constructor
+     * 
+     * @param int $id
+     * 
+     * Passed Ids only necessary when loading from the DB for instance
      */
     public function __construct($id = null)
     {
     	++self::$instances;
+    	
     	if ($id) {
     		$this->_id = $id;
     	}
@@ -173,7 +185,7 @@ class Circuit
 	    	// Generate ID from number of instances (safe if no decrement at destruction)
 		    $this->_id = self::$instances;
     	}
-	    $this->dateAjout=date("d/m/Y", rand(time()*0.8, time()));
+	    
 	    $this->programmations = array();
 	    $this->etapes = array();
 	    
@@ -182,29 +194,21 @@ class Circuit
 	    $this->dureeCircuit = 0;
     }
 		
-// 	/**
-// 	 * Handle restoration from the session
-// 	 */
-// 	public function __wakeup() {
-// 		if ($this->_id > self::$instances) {
-// 			self::$instances = $this->_id;
-// 		}
-// 	}
-
     /**
      * Add programmation
      *
      * @param \Model\ProgrammationCircuit $programmation
      *
-     * @return Circuit
+     * @return ProgrammationCircuit
      */
     public function addProgrammation(\Model\ProgrammationCircuit $programmation)
     {
         $this->programmations[] = $programmation;
 
-		// normaly useless       $programmation->setCircuit($this);
+		// normaly useless       
+		// $programmation->setCircuit($this);
 
-        return $this;
+        return $programmation;
     }
 
     /**
@@ -221,30 +225,87 @@ class Circuit
      * Add etape
      *
      * @param string $nom nom de la ville étape
-     * @param int $duree durée de l'étape dans cette vile
+     * @param int $duree durée de l'étape dans cette ville
+     * @param int $id identifiant de l'étape
      *
-     * @return Circuit
+     * @return Etape
      */
-    public function addEtape($nom, $duree)
+    public function addEtape($nom, $duree, $id=null)
     {
-        $etape = new Etape();
-        $etape->setVilleEtape($nom);
-        $etape->setNombreJours($duree);
+        $this->nbEtapes++;
         
-    	if($this->nbEtapes == 0) {
+        $etape = new Etape($this->nbEtapes, $nom, $duree, $this, $id);
+        
+    	if($this->nbEtapes == 1) {
     		$this->villeDepart = $nom;
     	}
-    	// we always add etape at the end of the circuit so lastEtape is arrival
+    	// we always add etape at the end of the circuit so last Etape is arrival
     	$this->villeArrivee = $nom;
-    	$this->nbEtapes++;
-    	$etape->setNumeroEtape($this->nbEtapes);
-        $etape->setCircuit($this);
+
         $this->etapes[] = $etape;
+        
         $this->dureeCircuit += $duree;
         
-        return $this;
+        return $etape;
     }
 
+    /**
+     * Suppression d'étape
+     * 
+     * @param Etape $etape
+     * 
+     * @return number
+     */
+    public function removeEtape($etape)
+    {
+        $found = -1;
+        $etape_depart=null;
+        $etape_arrivee=null;
+        
+        foreach($this->etapes as $i => $e) 
+        {
+            // we found the etape to be removed
+            if($e === $etape) 
+            {
+                $found = $i;
+                $this->dureeCircuit -= $e->getNombreJours();
+            }
+            else 
+          {
+                if(!isset($etape_depart)) 
+                {
+                    $etape_depart = $e;
+                }
+                $etape_arrivee = $e;
+            }
+            // renumber later etapes
+            if($found >= 0) 
+            {
+                $e->setNumeroEtape($e->getNumeroEtape() - 1);
+            }
+        }
+        if($found >= 0) 
+        {
+            // actually remove its from the list of Etapes of the Circuit
+            unset($this->etapes[$found]);
+            
+            // update calculated attributes
+            $this->nbEtapes--;
+
+            if(isset($etape_depart)) 
+            {
+                $this->setVilleDepart($etape_depart->getVilleEtape());
+                $this->setVilleArrivee($etape_arrivee->getVilleEtape());
+            }
+            else 
+            {
+                $this->setVilleDepart('');
+                $this->setVilleArrivee('');
+            }
+        }
+        return $found;
+    }
+    
     /**
      * Get etapes
      *
@@ -255,22 +316,4 @@ class Circuit
         return $this->etapes;
     }
 
-    /**
-     * @return false|string
-     */
-    public function getDateAjout()
-    {
-        return $this->dateAjout;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDeterminant(){
-        return $this->determinant;
-    }
-
-    public function setDeterminant($newDet){
-        $this->determinant=$newDet;
-    }
 }

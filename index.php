@@ -38,10 +38,16 @@ $app->get ( '/circuit',
     {
     	$circuitslist = get_all_circuits ();
     	$numberOfRows=ceil(count($circuitslist)/3);
+    	$prog=array();
+    	foreach($circuitslist as $circuit){
+    	    if(count($circuit->getProgrammations())>0){
+    	        $prog[]=$circuit;
+            }
+        }
     	// print_r($circuitslist);
     	
     	return $app ['twig']->render ( '/front/circuitslist.html.twig', [
-    			'circuitslist' => $circuitslist,
+    			'prog' => $prog,
                 'numberOfRows' => $numberOfRows
     	] );
     }
