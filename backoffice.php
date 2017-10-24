@@ -390,4 +390,98 @@ $app->get ( '/back/circuit/{id}',
 // Programmations
 //-----------------------
 
-// TODO : actions
+function prognewget_form($app)
+{
+
+    $form = $app['form.factory']->createBuilder(FormType::class)
+        ->add('circuit')
+        ->add('dateDepart')
+        ->add('nombrePersonnes')
+        ->add('prix')
+        ->getForm();
+    return $form;
+}
+
+$admin_prognew_getaction = function($circuit_id) use ($app)
+{
+    $prog = get_programmations_by_circuit_id( $circuit_id );
+
+    $formulaire = prognewget_form($app);
+
+    $formview = $formulaire->createView();
+
+    // display the form
+    return $app['twig']->render('back/prognew.html.twig',
+        array(
+            'prog' => $prog,
+            'formulaire' => $formview)
+    );
+};
+// GET
+$app->get('/back/prognew/{circuit_id}', $admin_prognew_getaction)
+    ->bind('backprognew');
+
+
+$admin_prognew_postaction = function(Request $request, $circuit_id) use ($app)
+{
+    $programmations=get_programmations_by_circuit_id($circuit_id);
+    $circuit=get_circuit_by_id($circuit_id);
+    $form = prognewget_form($app);
+
+    $form->handleRequest($request);
+
+    if ($form->isValid())
+    {
+        $data = $form->getData();
+
+        // Ajout de l'étape (calcul des attributs, etc)
+        $prog = $circuit->addProgrammation(new \Model\ProgrammationCircuit($data['date'],$data['nombrePersonnes'], $data['prix'], $circuit));
+
+        // Persistence en base de données
+        add_programmation($circuit, $prog->getDateDepart(),
+            $prog->getNombrePersonnes(),
+            $prog->getPrix());
+        // the duration has changed, so better save it
+        save_circuit($circuit);
+
+        $app['session']->getFlashBag()->add('message', 'Programmation bien ajoutée');
+
+        $url = $app["url_generator"]->generate("backprogrammationlist",
+            array(
+                'id' => $circuit->getId()
+            ));
+        return $app->redirect($url);
+    }
+    // for now, don't manage the case of non-valid data
+};
+// POST
+$app->post('/back/prognew/{circuit_id}', $admin_prognew_postaction);
+
+/**
+ * @var \Closure $admin_etapedelete_action
+ *
+ * Gestion de la suppression d'une étape (DELETE)
+ */
+$admin_etapedelete_action = function ($id) use ($app) {
+
+    $etape = get_etape_by_id($id);
+
+    $circuit = $etape->getCircuit();
+    $found = $circuit->removeEtape($etape);
+
+    // remove from the DB
+    remove_etape_by_id($id);
+
+    // refresh and save etapes which need to be renumbered
+    $circuit = save_refreshed_etapes($circuit);
+
+    $app['session']->getFlashBag()->add('message', 'étape suprimée');
+
+    return $app->redirect($app["url_generator"]->generate("backcircuitshow",
+        array(
+            'id' => $circuit->getId()
+        )));
+};
+$app->delete('/admin/etape/{id}', $admin_etapedelete_action)
+    ->bind('admin_etapedelete');
+

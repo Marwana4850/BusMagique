@@ -1,6 +1,6 @@
-{# templates/backoffice/etapeform.html.twig #}
+{# templates/backoffice/circuitform.html.twig #}
 
-{# To be included for new / modify Etape forms #}
+{# To be included for new / modify Circuit forms #}
 
 {# Use bootsrap style widgets for the form #}
 {% form_theme formulaire 'bootstrap_3_layout.html.twig' %}
@@ -8,7 +8,6 @@
 {% block navbar%}
     {% include 'modules/collabnavbar.html.twig' %}
 {% endblock %}
-
 
 {% block style %}
 
@@ -29,9 +28,9 @@
 
 {% endblock %}
 
-<form class="newform" action="#" method="post">
+<form action="#" method="post" class="newform">
     <br>
     {{ form_widget(formulaire) }}
-<br>
-    <input class="btn btn-success btn-block" type="submit" name="submit" />
+    <br>
+    <input class="btn btn-success btn-block" type="submit" name="submit"  />
 </form>

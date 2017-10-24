@@ -1,0 +1,13 @@
+{# templates/backoffice/circuitnew.html.twig #}
+
+{% extends "backoffice/adminlayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Nouvelle programmation{% endblock %}
+
+{% block body %}
+
+    <h1>Nouvelle programmation</h1>
+    (Date:Année-Mois-Jour, Circuit:id du circuit)
+    {% include 'back/progform.html.twig' %}
+
+{% endblock %} {# main #}

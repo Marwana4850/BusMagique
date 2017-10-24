@@ -5,8 +5,32 @@
 {# Use bootsrap style widgets for the form #}
 {% form_theme formulaire 'bootstrap_3_layout.html.twig' %}
 
-<form action="#" method="post">
-    {{ form_widget(formulaire) }}
+{% block navbar%}
+    {% include 'modules/collabnavbar.html.twig' %}
+{% endblock %}
 
-    <input type="submit" name="submit" />
+{% block style %}
+
+    <style>
+
+        .newform input[type="text"], .newform input[type="description"] {
+            width: 90rem;
+            padding: 12px 20px;
+            margin-left: 20px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 50px;
+            box-sizing: border-box;
+            height: 50px;
+        }
+
+    </style>
+
+{% endblock %}
+
+<form action="#" method="post" class="newform">
+    <br>
+    {{ form_widget(formulaire) }}
+<br>
+    <input class="btn btn-success btn-block" type="submit" name="submit"  />
 </form>

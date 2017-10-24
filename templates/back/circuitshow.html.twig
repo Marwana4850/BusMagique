@@ -111,6 +111,9 @@
     <p>Désolé : pas encore de programmations pour ce circuit.</p>
     {% endif %}
 
+	<form action="/back/prognew/{{ id }}" method="GET">
+		<button class="btn btn-success btn-block" type="submit">Nouvelle programmation</button>
+	</form>
 
 
 {% endblock body %}
