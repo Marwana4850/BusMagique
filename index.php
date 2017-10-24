@@ -26,7 +26,6 @@ require_once 'agvoymodel.php';
 $app->get('/',
     function() use ($app)
     {
-        $newCircuits=getNewCircuits();
         $programmations=get_all_programmations();
 
         return $app['twig']->render('/front/accueil.html.twig', ['programmations'=>$programmations]);
@@ -87,58 +86,11 @@ $app->get ( '/programmation',
 
 //////Routes back office//////
 
-$app->get('/back',
-    function() use ($app)
-    {
-        $programmations=get_all_programmations();
-
-        return $app['twig']->render('/back/accueil.html.twig', ['programmations'=>$programmations]);
-    }
-)->bind('backaccueil');
-
-// circuitlist : Liste tous les circuits
-$app->get ( '/back/circuit',
-    function () use ($app)
-    {
-        $circuitslist = get_all_circuits ();
-        $numberOfRows=ceil(count($circuitslist)/3);
-        // print_r($circuitslist);
-
-        return $app ['twig']->render ( '/back/circuitslist.html.twig', [
-            'circuitslist' => $circuitslist,
-            'numberOfRows' => $numberOfRows
-        ] );
-    }
-)->bind ( 'backcircuitlist' );
 
 
-// programmationlist : liste tous les circuits programmés
-$app->get ( '/back/programmation',
-    function () use ($app)
-    {
-        $programmationslist = get_all_programmations ();
-        // print_r($programmationslist);
+// chargement des gestionnaires pour le back office
+require_once 'backoffice.php';
 
-        return $app ['twig']->render ( '/back/programmationslist.html.twig', [
-            'programmationslist' => $programmationslist
-        ] );
-    }
-)->bind ( 'backprogrammationlist' );
 
-// circuitshow : affiche les détails d'un circuit
-$app->get ( '/back/circuit/{id}',
-    function ($id) use ($app)
-    {
-        $circuit = get_circuit_by_id ( $id );
-        // print_r($circuit);
-        $programmations = get_programmations_by_circuit_id ( $id );
-        //$circuit ['programmations'] = $programmations;
-
-        return $app ['twig']->render ( '/back/circuitshow.html.twig', [
-            'id' => $id,
-            'circuit' => $circuit
-        ] );
-    }
-)->bind ( 'backcircuitshow' );
 
 $app->run ();

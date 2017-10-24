@@ -1,6 +1,36 @@
 {% extends "baselayout.html.twig" %}
 
 {% block title %}{{ parent() }} - Viewing circuit a {{ circuit.villeArrivee }}{%  endblock title %}
+
+
+{% block circuit_etapes %}
+    {% if circuit.etapes is not empty %}
+
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Num&eacute;ro &eacute;tape</th>
+				<th>Ville &eacute;tape</th>
+				<th>Nombre de jours</th>
+				<th><!-- Action widgets --></th>
+			</tr>
+			</thead>
+            {%  for etape in circuit.etapes %}
+				<tr>
+					<td>{{ etape.numeroEtape }}</td>
+					<td>{{ etape.villeEtape  }}</td>
+					<td>{{ etape.nombreJours }}</td>
+
+				</tr>
+            {% endfor %} {# circuit.etapes #}
+		</table>
+    {% else %}
+		<p>Désolé : pas encore d'étapes pour ce circuit.</p>
+    {% endif %}
+
+{% endblock %} {# circuit_etapes #}
+
+
 {% block body %}
     {# templates/circuitshow.html.twig #}
     {#
@@ -18,8 +48,13 @@
         {{ circuit.villeArrivee }}.</p>
 	<br>
 
+	<h3>Etapes de ce circuit</h3>
+
+    {{ block('circuit_etapes') }}
+
+	<h3>Programmations de ce circuit</h3>
+
     {% if circuit.programmations is not empty %}
-		<h3>Programmations de ce circuit</h3>
         {# <pre>{{ dump(circuit) }}</pre> #}
      	<table class="table table-bordered table-striped">
      	 		<thead>

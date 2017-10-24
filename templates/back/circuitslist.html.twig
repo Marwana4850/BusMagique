@@ -17,8 +17,15 @@
 {% block body %}
 
 
+
+
     <h2 class="titrePage text-center">Liste de nos circuits</h2>
     <hr>
+    <br>
+
+    <form action="{{ path('admin_circuitnew') }}" method="GET">
+        <button class="btn btn-success btn-block" type="submit">Nouveau Circuit</button>
+    </form>
     <br>
 
     {% if circuitslist is not empty %}
@@ -33,7 +40,7 @@
                 <div class=" text-center column">
                 {% endif %}
                 {{ circuit.dateAjout|date('d-m-Y') }}
-                   <a href="{{ path('backcircuitlist',{'id': circuit.id })}}"><img data-toggle="popover" title="{{ circuit.description }}"
+                   <a href="{{ path('backcircuitshow',{'id': circuit.id })}}"><img data-toggle="popover" title="{{ circuit.description }}"
                                       data-content="Départ de {{ circuit.villeDepart }} pour {{ circuit.dureeCircuit }} j.
                                         de voyage à travers le {{ circuit.paysDepart }}, pour terminer à {{ circuit.villeArrivee }}."
                                       data-trigger="hover"

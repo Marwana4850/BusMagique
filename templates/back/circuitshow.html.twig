@@ -6,25 +6,90 @@
     {% include 'modules/collabnavbar.html.twig' %}
 {% endblock %}
 
+{% block circuit_etapes %}
+    {% if circuit.etapes is not empty %}
+
+		<table class="table table-bordered table-striped table-rounded">
+			<thead>
+			<tr>
+				<th>Num&eacute;ro &eacute;tape</th>
+				<th>Ville &eacute;tape</th>
+				<th>Nombre de jours</th>
+				<th><!-- Action widgets --></th>
+			</tr>
+			</thead>
+            {%  for etape in circuit.etapes %}
+				<tr>
+					<td>{{ etape.numeroEtape }}</td>
+					<td>{{ etape.villeEtape  }}</td>
+					<td>{{ etape.nombreJours }}</td>
+					<td>{# dump(etape) #}
+						<form action="{{ path('admin_etapedelete', { 'id' : etape.id }) }}"
+							  method="POST">
+							<button type="submit" class="btn btn-danger btn-block">Supprimer l'étape</button>
+							<input type="hidden" id="_method" name="_method" value="DELETE" />
+						</form>
+					</td>
+				</tr>
+            {% endfor %} {# circuit.etapes #}
+		</table>
+    {% else %}
+		<p>Désolé : pas encore d'étapes pour ce circuit.</p>
+    {% endif %}
+
+	<form action="{{ path('admin_etapenew', { 'circuit_id' : id }) }}"
+		  method="GET">
+		<button class="btn btn-success btn-block" type="submit">Ajouter une étape</button>
+	</form>
+
+{% endblock %} {# circuit_etapes #}
+
+
 {% block body %}
     {# templates/circuitshow.html.twig #}
     {#
       {{ dump(circuit) }}
     #}
+
 	<h2 class="titrePage text-center">{{ circuit.description }}</h2>
 	<hr>
 	<br>
+	<div class="row">
+		<div class="col-md-8">
 	<h3>Détails</h3>
-
+<br>
 	<p>Description: {{ circuit.description }}</p>
 
 	<p>Départ de {{ circuit.villeDepart }} pour {{ circuit.dureeCircuit }} j.
 		de voyage à travers le {{ circuit.paysDepart }}, pour terminer à
         {{ circuit.villeArrivee }}.</p>
 	<br>
+	</div>
+	<div class="col-md-4">
+		<h3>Actions :</h3>
+		<p>
+		<form action="{{ path('admin_circuitmodify', { 'id' : id }) }}"
+			  method="GET">
+			<button type="submit" class="btn btn-warning btn-block">Modifier le circuit</button>
+		</form> 
+		</p>
+		<p>
+		<form action="{{ path('admin_circuitdelete', { 'id' : id }) }}"
+			  method="POST">
+			<button type="submit" class="btn btn-danger btn-block">Supprimer le circuit</button>
+			<!-- Hiddent fake DELETE action simulation HTTP DELETE method -->
+			<input type="hidden" id="_method" name="_method" value="DELETE" />
+		</form>
+		</p>
+	</div>	<!-- /.col-md-2  -->
+	</div>
+	<h3>Etapes de ce circuit</h3>
+
+    {{ block('circuit_etapes') }}
+
+	<h3>Programmations de ce circuit</h3>
 
     {% if circuit.programmations is not empty %}
-		<h3>Programmations de ce circuit</h3>
         {# <pre>{{ dump(circuit) }}</pre> #}
      	<table class="table table-bordered table-striped">
      	 		<thead>
@@ -45,5 +110,7 @@
     {% else %}
     <p>Désolé : pas encore de programmations pour ce circuit.</p>
     {% endif %}
+
+
 
 {% endblock body %}
