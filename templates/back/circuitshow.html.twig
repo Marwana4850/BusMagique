@@ -1,0 +1,49 @@
+{% extends "baselayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Viewing circuit a {{ circuit.villeArrivee }}{%  endblock title %}
+
+{% block navbar%}
+    {% include 'modules/collabnavbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {# templates/circuitshow.html.twig #}
+    {#
+      {{ dump(circuit) }}
+    #}
+	<h2 class="titrePage text-center">{{ circuit.description }}</h2>
+	<hr>
+	<br>
+	<h3>Détails</h3>
+
+	<p>Description: {{ circuit.description }}</p>
+
+	<p>Départ de {{ circuit.villeDepart }} pour {{ circuit.dureeCircuit }} j.
+		de voyage à travers le {{ circuit.paysDepart }}, pour terminer à
+        {{ circuit.villeArrivee }}.</p>
+	<br>
+
+    {% if circuit.programmations is not empty %}
+		<h3>Programmations de ce circuit</h3>
+        {# <pre>{{ dump(circuit) }}</pre> #}
+     	<table class="table table-bordered table-striped">
+     	 		<thead>
+     					<tr>
+     				    	<th>Date de départ</th>
+     						  <th>Nombre de personnes</th>
+     						  <th>Prix</th>
+     					</tr>
+     				</thead>
+     		{%  for programmation in circuit.programmations %}
+     			<tr>
+     			   <td>{{ programmation.dateDepart|date('d-m-Y')  }}</td>
+     			   <td>{{ programmation.nombrePersonnes }}</td>
+     			   <td>{{ programmation.prix }} euros</td>
+     			</tr>
+     		{% endfor %}
+     		</table>
+    {% else %}
+    <p>Désolé : pas encore de programmations pour ce circuit.</p>
+    {% endif %}
+
+{% endblock body %}

@@ -35,6 +35,7 @@ function get_all_circuits()
     	$circuit->setVilleDepart($c['ville_depart']);
     	$circuit->setVilleArrivee($c['ville_arrivee']);
     	$circuit->setDureeCircuit($c['duree_circuit']);
+        $circuit->setDateAjout($c['date_ajout']);
 
     	$programmation_list=get_programmations_by_circuit_id($circuit->getId());
 
@@ -71,7 +72,7 @@ function get_circuit_by_id($id)
 		
 		$circuit->setDescription($c['description']);
 		$circuit->setPaysDepart($c['pays_depart']);
-		
+		$circuit->setDateAjout($c['date_ajout']);
 		$returned_etapes =  $app['db']->fetchAll(
 		    "SELECT * FROM etape WHERE circuit_id = :id ORDER BY numero_etape",
 			array('id' => $id));
@@ -369,7 +370,7 @@ function get_programmations_by_circuit_id($id)
 
     $found = array();
 
-    $list_of_programmations = $app['db']->fetchAll("SELECT * FROM programmation_circuit WHERE programmation_circuit.circuit_id==$id");
+    $list_of_programmations = $app['db']->fetchAll("SELECT * FROM programmation_circuit WHERE circuit_id==$id");
 
 
     foreach ($list_of_programmations as $p) {
@@ -447,4 +448,28 @@ function get_programmations_by_circuit_id($id)
          'id' => $id
      ));
  }
- 
+
+
+ function getNewCircuits(){
+     $circuitslist = get_all_circuits ();
+     $newCircuits=array();
+     $today=date('d-m-Y', time());
+
+     foreach($circuitslist as $circuit){
+        if($circuit->getDateAjout()->diff($today)<20){     //TODO condition
+            $newCircuits[]=$circuit;
+        }
+     }
+
+     return $newCircuits;
+ }
+
+ function getSoonProgrammations(){
+     $circuitslist = get_all_circuits ();
+     $prog=array();
+     foreach($circuitslist as $circuit){
+         if(count($circuit->getProgrammations())>0){
+             $prog[]=$circuit;
+         }
+     }
+ }

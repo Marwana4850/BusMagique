@@ -26,6 +26,7 @@ require_once 'agvoymodel.php';
 $app->get('/',
     function() use ($app)
     {
+        $newCircuits=getNewCircuits();
         $programmations=get_all_programmations();
 
         return $app['twig']->render('/front/accueil.html.twig', ['programmations'=>$programmations]);
@@ -37,7 +38,7 @@ $app->get ( '/circuit',
     function () use ($app) 
     {
     	$circuitslist = get_all_circuits ();
-    	$numberOfRows=ceil(count($circuitslist)/3);
+    	$numberOfRows=floor(count($circuitslist)/3);
     	$prog=array();
     	foreach($circuitslist as $circuit){
     	    if(count($circuit->getProgrammations())>0){
@@ -62,7 +63,7 @@ $app->get ( '/circuit/{id}',
 		$programmations = get_programmations_by_circuit_id ( $id );
 		//$circuit ['programmations'] = $programmations;
 
-		return $app ['twig']->render ( 'circuitshow.html.twig', [ 
+		return $app ['twig']->render ( '/front/circuitshow.html.twig', [
 				'id' => $id,
 				'circuit' => $circuit 
 			] );
@@ -124,5 +125,20 @@ $app->get ( '/back/programmation',
     }
 )->bind ( 'backprogrammationlist' );
 
+// circuitshow : affiche les détails d'un circuit
+$app->get ( '/back/circuit/{id}',
+    function ($id) use ($app)
+    {
+        $circuit = get_circuit_by_id ( $id );
+        // print_r($circuit);
+        $programmations = get_programmations_by_circuit_id ( $id );
+        //$circuit ['programmations'] = $programmations;
+
+        return $app ['twig']->render ( '/back/circuitshow.html.twig', [
+            'id' => $id,
+            'circuit' => $circuit
+        ] );
+    }
+)->bind ( 'backcircuitshow' );
 
 $app->run ();

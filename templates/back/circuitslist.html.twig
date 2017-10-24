@@ -28,17 +28,19 @@
             {# Loop through list and creeate the list of circuit items. #}
 
             {% for circuit in circuitslist %}
+
                 {% if numberOfRows ==1 or loop.index % numberOfRows == 1 %}
                 <div class=" text-center column">
                 {% endif %}
-
-                   <a href="/circuit/{{ circuit.id }}"><img data-toggle="popover" title="{{ circuit.description }}"
+                {{ circuit.dateAjout|date('d-m-Y') }}
+                   <a href="{{ path('backcircuitlist',{'id': circuit.id })}}"><img data-toggle="popover" title="{{ circuit.description }}"
                                       data-content="Départ de {{ circuit.villeDepart }} pour {{ circuit.dureeCircuit }} j.
                                         de voyage à travers le {{ circuit.paysDepart }}, pour terminer à {{ circuit.villeArrivee }}."
                                       data-trigger="hover"
                            data-placement="bottom" class="img-rounded" style="width:300px;height:185px;" src="/images/{{ circuit.description }}.jpg"><br><br></a>
                 {% if loop.last or loop.index % numberOfRows == 0 %}
                 </div>
+
                 {% endif %}
             {% endfor %}
 

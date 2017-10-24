@@ -9,9 +9,9 @@
             <a class="navbar-brand" style="background-color:#333" ><img style="display:inline-block;width:30px;"src="/favicon.jpg"> Voyages Bus-Magique</a>
         </div>
 
-        <a href="/">Accueil</a>
-        <a href="/programmation">Programmations</a>
-        <a href="/circuit">Circuits</a>
+        <a href="{{ path('accueil') }}">Accueil</a>
+        <a href="{{ path('programmationlist') }}">Programmations</a>
+        <a href="{{ path('circuitlist') }}">Circuits</a>
         {#
         <div class="dropdown">
             <button class="dropbtn" onclick="myFunction()">Circuits

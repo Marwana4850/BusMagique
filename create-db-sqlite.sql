@@ -15,17 +15,18 @@ CREATE TABLE circuit (
    ville_depart VARCHAR(30) DEFAULT NULL,
    ville_arrivee VARCHAR(30) DEFAULT NULL,
    duree_circuit SMALLINT DEFAULT NULL,
+   date_ajout DATE NOT NULL, 
 PRIMARY KEY(id));
 
 -- circuits d'exemple
-INSERT INTO `circuit`(`id`,`description`, pays_depart, ville_depart, ville_arrivee, duree_circuit) 
-            VALUES (1,'Andalousie', 'Espagne', 'Grenade', 'Seville', 4);
-INSERT INTO `circuit`(`id`,`description`, pays_depart, ville_depart, ville_arrivee, duree_circuit) 
-            VALUES (2,'Vietnam', 'Vietnam', 'Hanoï', 'Hô Chi Minh', 4);
-INSERT INTO `circuit`(`id`,`description`, pays_depart, ville_depart, ville_arrivee, duree_circuit) 
-            VALUES (3,'Ile de France', 'France', 'Versailles', 'Paris', 2);
-INSERT INTO `circuit`(`id`,`description`, pays_depart, ville_depart, ville_arrivee, duree_circuit) 
-            VALUES (4,'Italie', 'Italie', 'Florence', 'Rome', 5);
+INSERT INTO `circuit`(`id`,`description`, pays_depart, ville_depart, ville_arrivee, duree_circuit, date_ajout) 
+            VALUES (1,'Andalousie', 'Espagne', 'Grenade', 'Seville', 4, '2017-10-23');
+INSERT INTO `circuit`(`id`,`description`, pays_depart, ville_depart, ville_arrivee, duree_circuit, date_ajout) 
+            VALUES (2,'Vietnam', 'Vietnam', 'Hanoï', 'Hô Chi Minh', 4, '2017-10-23');
+INSERT INTO `circuit`(`id`,`description`, pays_depart, ville_depart, ville_arrivee, duree_circuit, date_ajout) 
+            VALUES (3,'Ile de France', 'France', 'Versailles', 'Paris', 2, '2017-10-23');
+INSERT INTO `circuit`(`id`,`description`, pays_depart, ville_depart, ville_arrivee, duree_circuit, date_ajout) 
+            VALUES (4,'Italie', 'Italie', 'Florence', 'Rome', 5, '2017-10-23');
 
 -- etape
 --  Etapes des circuits

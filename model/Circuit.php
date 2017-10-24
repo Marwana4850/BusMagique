@@ -34,6 +34,8 @@ class Circuit
      * @var int Nombre d'étapes (attribut calculé)
      */
     private $nbEtapes;
+
+    private $dateAjout;
     
     /**
      * Get id
@@ -167,6 +169,15 @@ class Circuit
         return $this->dureeCircuit;
     }
 
+
+    public function getDateAjout(){
+        return $this->dateAjout;
+    }
+
+    public function setDateAjout($date){
+        $this->dateAjout=date_create_from_format('Y-m-d', $date);
+        return $this;
+    }
     /**
      * Constructor
      * 

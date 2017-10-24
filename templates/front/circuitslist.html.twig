@@ -26,7 +26,7 @@
                 <div class=" text-center column">
                 {% endif %}
 
-                   <a href="/circuit/{{ circuit.id }}"><img data-toggle="popover" title="{{ circuit.description }}"
+                   <a href="{{ path('circuitshow', {'id':circuit.id}) }}"><img data-toggle="popover" title="{{ circuit.description }}"
                                       data-content="Départ de {{ circuit.villeDepart }} pour {{ circuit.dureeCircuit }} j.
                                         de voyage à travers le {{ circuit.paysDepart }}, pour terminer à {{ circuit.villeArrivee }}."
                                       data-trigger="hover"
